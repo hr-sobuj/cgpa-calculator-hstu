@@ -2,28 +2,44 @@ import React, { useState } from "react";
 
 export default function GPACalculator() {
     const [inputFields, setInputFields] = useState([
-        { credit: '', grade: '' }
+        { credit: 0.00, point: 0.00 }
     ])
+    const [result, setResult] = useState(0.00);
 
-    const handleFormChange=(index,e)=>{
-        let data=[...inputFields];
-        console.log(e.target.name);
-        data[index][e.target.name]=e.target.value;
+    const handleFormChange = (index, e) => {
+        let data = [...inputFields];
+        data[index][e.target.name] = e.target.value;
         setInputFields(data);
     }
 
     const addField = () => {
-        let newField = { credit: '', grade: '' }
+        let newField = { credit: '', point: '' }
         setInputFields([...inputFields, newField])
     }
 
-    const generateResult=(e)=>{
+    const generateResult = (e) => {
         e.preventDefault();
-        console.log(inputFields);
+        // console.log(inputFields);
+        let total_credit = 0.00;
+        let total_point = 0.00;
+        inputFields.map((item) => {
+            console.log(item);
+            total_credit += parseFloat(item.credit)
+            total_point +=parseFloat(parseFloat(item.point) * parseFloat(item.credit))
+            console.log("tcr",total_point);
+            console.log("cr",total_credit);
+            let result=parseFloat((parseFloat(total_point) / parseFloat(total_credit)));
+            console.log("res",result);
+            setResult(result)
+            return 0;
+        }
+        )
+
     }
 
     return (
         <>
+        {result && result}
             <div>
                 <div className="h-screen flex flex-col justify-center items-center">
                     <h1 className="text-4xl font-bold flex justify-center">GPA Calculator</h1>
@@ -32,9 +48,10 @@ export default function GPACalculator() {
                             return (
                                 <React.Fragment key={idx}>
                                     <div>
-                                        <input type="number" name="credit" id="" placeholder="Enter your course Credit" value={input.credit} className="border px-3 py-2" onChange={(e)=>handleFormChange(idx,e)} />
-                                       
-                                        <select name="grade" value={input.grade} className="border px-3 py-2"  onChange={(e)=>handleFormChange(idx,e)}>
+                                        <input type="number" max={4} maxLength={1} name="credit" id="" placeholder="Enter your course Credit" value={input.credit} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)} />
+
+                                        <select name="point" value={input.point} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)}>
+                                            <option value="">Choose</option>
                                             <option value="4.00">A+</option>
                                             <option value="3.75">A</option>
                                             <option value="3.50">A-</option>
@@ -52,8 +69,10 @@ export default function GPACalculator() {
                             )
                         })}
                     </form>
-                    <button onClick={addField}>Add More</button>
-                    <button onClick={generateResult}>Submit</button>
+                    <div className="flex space-x-3">
+                        <button onClick={addField} className="bg-red-400">Add More</button>
+                        <button onClick={generateResult} className="bg-lime-600">Submit</button>
+                    </div>
                 </div>
             </div>
         </>
