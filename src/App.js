@@ -1,7 +1,14 @@
+import {
+  Route, Routes
+} from "react-router-dom";
+import GPACalculator from "./pages/GPACalculator";
+
 
 function App() {
   return (
-    <>HSTU CGPA Calculator</>
+    <Routes>
+     <Route path="/" element={<GPACalculator />} />
+  </Routes>
   );
 }
 
