@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function GPACalculator() {
     const [inputFields, setInputFields] = useState([
-        { credit: 0.00, point: 0.00 }
+        { credit: '', point: '' }
     ])
     const [result, setResult] = useState(0.00);
 
@@ -19,18 +19,26 @@ export default function GPACalculator() {
 
     const generateResult = (e) => {
         e.preventDefault();
-        // console.log(inputFields);
         let total_credit = 0.00;
         let total_point = 0.00;
         inputFields.map((item) => {
-            console.log(item);
-            total_credit += parseFloat(item.credit)
-            total_point +=parseFloat(parseFloat(item.point) * parseFloat(item.credit))
-            console.log("tcr",total_point);
-            console.log("cr",total_credit);
-            let result=parseFloat((parseFloat(total_point) / parseFloat(total_credit)));
-            console.log("res",result);
-            setResult(result)
+            total_credit += parseFloat(item.credit);
+            if (item.point === 0) {
+                total_point = total_point + 0;
+            } else {
+                total_point += parseFloat(parseFloat(item.point) * parseFloat(item.credit))
+            }
+            let result=0;
+            if(parseFloat(total_credit)!==0.00){
+                result = parseFloat((parseFloat(total_point) / parseFloat(total_credit)));
+            }
+            
+            if (isNaN(result)||result===0) {
+                setResult(0.00);
+            } else {
+                setResult(result);
+            }
+
             return 0;
         }
         )
@@ -39,7 +47,7 @@ export default function GPACalculator() {
 
     return (
         <>
-        {result && result}
+            {result && result}
             <div>
                 <div className="h-screen flex flex-col justify-center items-center">
                     <h1 className="text-4xl font-bold flex justify-center">GPA Calculator</h1>
@@ -48,10 +56,10 @@ export default function GPACalculator() {
                             return (
                                 <React.Fragment key={idx}>
                                     <div>
-                                        <input type="number" max={4} maxLength={1} name="credit" id="" placeholder="Enter your course Credit" value={input.credit} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)} />
+                                        <input type="number" max={4} maxLength={1} name="credit" id="" placeholder="Enter course Credit" value={input.credit} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)} required/>
 
-                                        <select name="point" value={input.point} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)}>
-                                            <option value="">Choose</option>
+                                        <select name="point" value={input.point} className="border px-3 py-2" onChange={(e) => handleFormChange(idx, e)} required>
+                                            <option value="">Choose Grade</option>
                                             <option value="4.00">A+</option>
                                             <option value="3.75">A</option>
                                             <option value="3.50">A-</option>
