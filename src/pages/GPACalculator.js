@@ -4,7 +4,7 @@ export default function GPACalculator() {
     const [inputFields, setInputFields] = useState([
         { credit: '', point: '' }
     ])
-    const [result, setResult] = useState(0.00);
+    const [result, setResult] = useState();
 
     const handleFormChange = (index, e) => {
         let data = [...inputFields];
@@ -15,6 +15,12 @@ export default function GPACalculator() {
     const addField = () => {
         let newField = { credit: '', point: '' }
         setInputFields([...inputFields, newField])
+    }
+
+    const removeField=(index)=>{
+        let data = [...inputFields];
+        data.splice(index, 1)
+        setInputFields(data)
     }
 
     const generateResult = (e) => {
@@ -47,9 +53,10 @@ export default function GPACalculator() {
 
     return (
         <>
-            {result && result}
+            
             <div>
                 <div className="h-screen flex flex-col justify-center items-center">
+                    <h1 className="text-4xl font-bold mb-5 text-green-500">{result && <span>Your GPA is {result}</span>}</h1>
                     <h1 className="text-4xl font-bold flex justify-center">GPA Calculator</h1>
                     <form className="flex flex-col">
                         {inputFields?.map((input, idx) => {
@@ -71,6 +78,7 @@ export default function GPACalculator() {
                                             <option value="2.00">D</option>
                                             <option value="0.00">F</option>
                                         </select>
+                                        <button onClick={()=>removeField(idx)} className="border p-2">❌</button>
                                     </div>
 
                                 </React.Fragment>
