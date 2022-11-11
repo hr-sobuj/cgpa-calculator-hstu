@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function GPACalculator() {
+export default function CGPACalculator() {
     let navigate = useNavigate();
     let [name, setName] = useState("");
-    const [inputFields, setInputFields] = useState([{ credit: "", point: "" }]);
+    const [inputFields, setInputFields] = useState([{ gpa: "", credit: "" }]);
 
     const [result, setResult] = useState();
 
@@ -15,7 +15,7 @@ export default function GPACalculator() {
     };
 
     const addField = () => {
-        let newField = { credit: "", point: "" };
+        let newField = { gpa: "", credit: "" };
         setInputFields([...inputFields, newField]);
     };
 
@@ -27,34 +27,35 @@ export default function GPACalculator() {
 
     const generateResult = (e) => {
         e.preventDefault();
+        let total_gpa = 0.0;
         let total_credit = 0.0;
-        let total_point = 0.0;
         inputFields.map((item) => {
             total_credit += parseFloat(item.credit);
-            if (item.point === 0) {
-                total_point = total_point + 0;
+            if (item.gpa === 0) {
+                total_gpa = total_gpa + 0;
             } else {
-                total_point += parseFloat(
-                    parseFloat(item.point) * parseFloat(item.credit)
+                total_gpa += parseFloat(
+                    parseFloat(item.gpa) * parseFloat(item.credit)
                 );
             }
             let result = 0;
             if (parseFloat(total_credit) !== 0.0) {
-                result = parseFloat(parseFloat(total_point) / parseFloat(total_credit));
+                result = parseFloat(parseFloat(total_gpa) / parseFloat(total_credit));
             }
 
             if (isNaN(result) || result === 0) {
                 setResult(0.0);
             } else {
+                
+                result = result.toFixed(2)
                 setResult(result);
-                result=Math.ceil(result)
-                result=result.toFixed(2)
-                navigate("/gpa_result",{state:{inputFields,name,result}})
+                navigate("/result", { state: { inputFields, name, result } })
             }
+
 
             return 0;
         });
-        
+
     };
 
     return (
@@ -65,7 +66,7 @@ export default function GPACalculator() {
                         {result && <span>Your GPA is {result}</span>}
                     </h1>
                     <h1 className="text-4xl font-bold flex justify-center">
-                        GPA Calculator
+                        CGPA Calculator
                     </h1>
                     <form className="flex flex-col space-y-2">
                         <div>
@@ -80,39 +81,35 @@ export default function GPACalculator() {
                         {inputFields?.map((input, idx) => {
                             return (
                                 <React.Fragment key={idx}>
-                                    <div>
+                                    <div className="w-full">
+
+                                        <input
+                                            type="number"
+                                            max={4}
+                                            maxLength={2}
+                                            name="gpa"
+                                            id=""
+                                            placeholder={`Enter ${idx + 1}th semester GPA`}
+                                            value={input.gpa}
+                                            className="border px-3 py-2"
+                                            onChange={(e) => handleFormChange(idx, e)}
+                                            required
+                                        />
+
                                         <input
                                             type="number"
                                             max={4}
                                             maxLength={1}
                                             name="credit"
                                             id=""
-                                            placeholder="Enter course Credit"
+                                            placeholder={`Enter ${idx + 1}th semester total credit`}
                                             value={input.credit}
                                             className="border px-3 py-2"
                                             onChange={(e) => handleFormChange(idx, e)}
                                             required
                                         />
 
-                                        <select
-                                            name="point"
-                                            value={input.point}
-                                            className="border px-3 py-2"
-                                            onChange={(e) => handleFormChange(idx, e)}
-                                            required
-                                        >
-                                            <option value="">Choose Grade</option>
-                                            <option value="4.00">A+</option>
-                                            <option value="3.75">A</option>
-                                            <option value="3.50">A-</option>
-                                            <option value="3.25">B+</option>
-                                            <option value="3.00">B</option>
-                                            <option value="2.75">B-</option>
-                                            <option value="2.50">C+</option>
-                                            <option value="2.25">C</option>
-                                            <option value="2.00">D</option>
-                                            <option value="0.00">F</option>
-                                        </select>
+
                                         <button
                                             onClick={() => removeField(idx)}
                                             className="border p-2"

@@ -9,7 +9,7 @@ const options = {
     format: [10, 10]
 };
 
-export default function ResultPrint() {
+export default function GPAPrint() {
     let navigate=useNavigate()
     const location = useLocation();
     let { inputFields, name, result } = location.state;
