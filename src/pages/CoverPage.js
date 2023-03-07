@@ -5,6 +5,9 @@ import Navbar from "../components/Navbar";
 export default function CoverPage() {
     const navigate = useNavigate();
     const [studentName, setStudentName] = useState("");
+    const [studentId, setStudentId] = useState("");
+    const [level, setLevel] = useState("");
+    const [semester, setSemester] = useState("");
     const [studentFaculty, setStudentFaculty] = useState("");
     const [studentDepartment, setStudentDepartment] = useState("");
     const [teacherName, setTeacherName] = useState("");
@@ -23,6 +26,15 @@ export default function CoverPage() {
 
         if (studentName.trim() === "") {
             validationErrors.push("Student name is required");
+        }
+        if (studentId.trim() === "") {
+            validationErrors.push("Student ID is required");
+        }
+        if (level.trim() === "") {
+            validationErrors.push("Level is required");
+        }
+        if (semester.trim() === "") {
+            validationErrors.push("Semester is required");
         }
         if (studentFaculty.trim() === "") {
             validationErrors.push("Student faculty is required");
@@ -60,8 +72,11 @@ export default function CoverPage() {
             navigate("/print_cover", {
                 state: {
                     studentName,
+                    studentId,
                     studentFaculty,
                     studentDepartment,
+                    level,
+                    semester,
                     teacherName,
                     teacherDesignation,
                     teacherFaculty,
@@ -104,6 +119,19 @@ export default function CoverPage() {
                             />
                         </div>
                         <div className="flex-1">
+                            <label htmlFor="studentId" className="block text-gray-700 font-bold mb-2">
+                                Student ID
+                            </label>
+                            <input
+                                type="text"
+                                name="studentId"
+                                id="studentId"
+                                value={studentId}
+                                onChange={(event) => setStudentId(event.target.value)}
+                                className="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-600 focus:ring focus:ring-lime-200 focus:ring-opacity-50"
+                            />
+                        </div>
+                        <div className="flex-1">
                             <label htmlFor="studentFaculty" className="block text-gray-700 font-bold mb-2">
                                 Student Faculty
                             </label>
@@ -126,6 +154,33 @@ export default function CoverPage() {
                                 id="studentDepartment"
                                 value={studentDepartment}
                                 onChange={(event) => setStudentDepartment(event.target.value)}
+                                className="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-600 focus:ring focus:ring-lime-200 focus:ring-opacity-50"
+                            />
+                        </div>
+
+                        <div className="flex-1">
+                            <label htmlFor="level" className="block text-gray-700 font-bold mb-2">
+                                Level
+                            </label>
+                            <input
+                                type="text"
+                                name="level"
+                                id="level"
+                                value={level}
+                                onChange={(event) => setLevel(event.target.value)}
+                                className="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-600 focus:ring focus:ring-lime-200 focus:ring-opacity-50"
+                            />
+                        </div>
+                        <div className="flex-1">
+                            <label htmlFor="semester" className="block text-gray-700 font-bold mb-2">
+                                Semester
+                            </label>
+                            <input
+                                type="text"
+                                name="semester"
+                                id="semester"
+                                value={semester}
+                                onChange={(event) => setSemester(event.target.value)}
                                 className="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-600 focus:ring focus:ring-lime-200 focus:ring-opacity-50"
                             />
                         </div>
