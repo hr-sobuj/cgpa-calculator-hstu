@@ -36,7 +36,6 @@ const CoverPrint = forwardRef((props, ref) => {
     };
 
     return (
-       <>
         <div ref={componentRef}
             className="max-w-5xl mx-auto border-2 border-gray-300 p-8 my-8"
             style={{ height: "297mm", width: "210mm", backgroundColor: "#FFFFFF" }}
@@ -89,25 +88,26 @@ const CoverPrint = forwardRef((props, ref) => {
                 <div className="text-xl font-bold text-center mb-2">
                     Dinajpur-5200, Bangladesh
                 </div>
-             
+                <div className="flex flex-row justify-between w-2/3 mb-4">
+                    <div className="font-bold text-gray-500">Printed By: </div>
+                    <div className="font-bold text-gray-500">{props.user}</div>
+                </div>
             </div>
-         
+            <div className="flex justify-between items-center">
+                <button
+                    onClick={handleBack}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaArrowLeft className="inline mr-2" /> Back
+                </button>
+                <button
+                    onClick={handlePrint}
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaPrint className="inline mr-2" /> Print
+                </button>
+            </div>
         </div>
-           <div className="flex justify-center items-center space-x-5 mb-6">
-           <button
-               onClick={handleBack}
-               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-           >
-               <FaArrowLeft className="inline mr-2" /> Back
-           </button>
-           <button
-               onClick={handlePrint}
-               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-           >
-               <FaPrint className="inline mr-2" /> Print
-           </button>
-       </div>
-       </>
     );
 });
 
