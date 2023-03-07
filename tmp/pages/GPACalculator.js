@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-
-function classNames(...classes){
-    return classes.filter(Boolean).join(" ")
-}
 
 export default function GPACalculator() {
     let navigate = useNavigate();
     let [name, setName] = useState("");
     const [inputFields, setInputFields] = useState([{ credit: "", point: "" }]);
+
     const [result, setResult] = useState();
 
     const handleFormChange = (index, e) => {
@@ -24,9 +20,6 @@ export default function GPACalculator() {
     };
 
     const removeField = (index) => {
-        if (inputFields.length === 1) {
-            return; // if only one input field, disable removing it
-        }
         let data = [...inputFields];
         data.splice(index, 1);
         setInputFields(data);
@@ -36,12 +29,7 @@ export default function GPACalculator() {
         e.preventDefault();
         let total_credit = 0.0;
         let total_point = 0.0;
-        let hasEmptyFields = false; // added variable to keep track of empty fields
-        inputFields.forEach((item) => {
-            if (item.credit === "" || item.point === "") { // check for empty fields
-                hasEmptyFields = true;
-                return;
-            }
+        inputFields.map((item) => {
             total_credit += parseFloat(item.credit);
             if (item.point === 0) {
                 total_point = total_point + 0;
@@ -50,35 +38,33 @@ export default function GPACalculator() {
                     parseFloat(item.point) * parseFloat(item.credit)
                 );
             }
+            let result = 0;
+            if (parseFloat(total_credit) !== 0.0) {
+                result = parseFloat(parseFloat(total_point) / parseFloat(total_credit));
+            }
+
+            if (isNaN(result) || result === 0) {
+                setResult(0.0);
+            } else {
+                setResult(result);
+                result=Math.ceil(result)
+                result=result.toFixed(2)
+                navigate("/gpa_result",{state:{inputFields,name,result}})
+            }
+
+            return 0;
         });
-
-        let result = 0;
-        if (parseFloat(total_credit) !== 0.0) {
-            result = parseFloat(parseFloat(total_point) / parseFloat(total_credit));
-        }
-
-        if (hasEmptyFields) { // display error message if any required fields are empty
-            alert("Please fill out all the required fields.");
-        } else if (isNaN(result) || result === 0) {
-            setResult(0.0);
-        } else {
-            setResult(result);
-            // result=Math.ceil(result)
-            result = result.toFixed(2)
-            navigate("/gpa_result", { state: { inputFields, name, result } })
-        }
+        
     };
-
 
     return (
         <>
-        <Navbar/>
             <div>
                 <div className="h-screen flex flex-col justify-center items-center">
                     <h1 className="text-4xl font-bold mb-5 text-green-500">
                         {result && <span>Your GPA is {result}</span>}
                     </h1>
-                    <h1 className="text-4xl font-bold flex justify-center mb-5">
+                    <h1 className="text-4xl font-bold flex justify-center">
                         GPA Calculator
                     </h1>
                     <form className="flex flex-col space-y-2">
@@ -86,7 +72,7 @@ export default function GPACalculator() {
                             <input
                                 type="text"
                                 placeholder="Enter Your Name"
-                                className="border px-3 py-2 w-full rounded-lg"
+                                className="border px-3 py-2 w-full"
                                 onChange={(e) => setName(e.target.value)}
                                 value={name}
                             />
@@ -94,16 +80,16 @@ export default function GPACalculator() {
                         {inputFields?.map((input, idx) => {
                             return (
                                 <React.Fragment key={idx}>
-                                    <div className="flex space-x-2">
+                                    <div>
                                         <input
                                             type="number"
                                             max={4}
                                             maxLength={1}
                                             name="credit"
                                             id=""
-                                            placeholder="Credit"
+                                            placeholder="Enter course Credit"
                                             value={input.credit}
-                                            className="border px-3 py-2 rounded-lg"
+                                            className="border px-3 py-2"
                                             onChange={(e) => handleFormChange(idx, e)}
                                             required
                                         />
@@ -111,7 +97,7 @@ export default function GPACalculator() {
                                         <select
                                             name="point"
                                             value={input.point}
-                                            className="border px-3 py-2 rounded-lg"
+                                            className="border px-3 py-2"
                                             onChange={(e) => handleFormChange(idx, e)}
                                             required
                                         >
@@ -119,6 +105,7 @@ export default function GPACalculator() {
                                             <option value="4.00">A+</option>
                                             <option value="3.75">A</option>
                                             <option value="3.50">A-</option>
+                                            <option value="3.25">B+</option>
                                             <option value="3.00">B</option>
                                             <option value="2.75">B-</option>
                                             <option value="2.50">C+</option>
@@ -127,33 +114,24 @@ export default function GPACalculator() {
                                             <option value="0.00">F</option>
                                         </select>
                                         <button
-                                            className={classNames(inputFields.length === 1?"opacity-50 cursor-not-allowed":"","bg-red-500  text-white rounded-lg px-3 py-2")}
-                                            type="button"
                                             onClick={() => removeField(idx)}
-                                            disabled={inputFields.length === 1}
+                                            className="border p-2"
                                         >
-                                            -
+                                            ❌
                                         </button>
-
                                     </div>
                                 </React.Fragment>
                             );
                         })}
-                        <button
-                            className="bg-blue-500 text-white rounded-lg px-3 py-2 mt-3"
-                            type="button"
-                            onClick={addField}
-                        >
-                            Add Course
-                        </button>
-                        <button
-                            className="bg-green-500 text-white rounded-lg px-3 py-2 mt-3"
-                            type="submit"
-                            onClick={generateResult}
-                        >
-                            Calculate GPA
-                        </button>
                     </form>
+                    <div className="flex space-x-3">
+                        <button onClick={addField} className="bg-red-400">
+                            Add More
+                        </button>
+                        <button onClick={generateResult} className="bg-lime-600">
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
