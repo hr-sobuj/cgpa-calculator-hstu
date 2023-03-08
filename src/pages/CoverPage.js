@@ -270,7 +270,7 @@ export default function CoverPage() {
                         </div>
                         <div className="flex-1">
                             <label htmlFor="courseCode" className="block text-gray-700 font-bold mb-2">
-                            Course Code
+                                Course Code
                             </label>
                             <input
                                 type="text"
@@ -295,7 +295,7 @@ export default function CoverPage() {
                                 <option value="Lab Report">Lab Report</option>
                             </select>
                         </div>
-                       
+
                     </div>
                     <div className="flex justify-center">
                         <button type="submit" className="px-4 py-2 bg-lime-600 text-white rounded-md hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-lime-600 focus:ring-opacity-50">
