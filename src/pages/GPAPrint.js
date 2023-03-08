@@ -18,7 +18,7 @@ const GPAPrint = forwardRef((props, ref) => {
 
   const triggerPrint = useReactToPrint({
     content: () => printRef.current,
-    documentName: name, // Set the PDF name to the value of the 'name' variable
+    documentName: name, 
   });
 
   return (
