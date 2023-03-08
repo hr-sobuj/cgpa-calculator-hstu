@@ -57,6 +57,10 @@ export default function GPACalculator() {
         if (parseFloat(total_credit) !== 0.0) {
             result = parseFloat(parseFloat(total_point) / parseFloat(total_credit));
         }
+        if (!name) {
+            hasEmptyFields = true 
+          }
+        
 
         if (hasEmptyFields) { // display error message if any required fields are empty
             alert("Please fill out all the required fields.");
@@ -102,7 +106,7 @@ export default function GPACalculator() {
                                             maxLength={1}
                                             name="credit"
                                             id=""
-                                            placeholder="Credit"
+                                            placeholder="Course Credit"
                                             value={input.credit}
                                             className="border px-3 py-2 rounded-lg"
                                             onChange={(e) => handleFormChange(idx, e)}

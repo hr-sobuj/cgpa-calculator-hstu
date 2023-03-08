@@ -65,13 +65,13 @@ const CoverPrint = forwardRef((props, ref) => {
                     <div className="max-w-5xl mx-auto">
                         <div className="grid grid-cols-2 gap-x-5 divide-x-2">
                             <div className="text-gray-500 flex flex-col items-center p-4">
-                                <div className="font-bold mb-2">Teacher Information:</div>
+                                <div className="font-bold mb-2">Submitted To</div>
                                 <div>{teacherName}</div>
                                 <div>{teacherDesignation}</div>
                                 <div>{teacherDepartment}</div>
                             </div>
                             <div className="text-gray-500 flex flex-col items-center p-4">
-                                <div className="font-bold mb-2">Student Information:</div>
+                                <div className="font-bold mb-2">Submitted By</div>
                                 <div>{studentName}</div>
                                 <div>{studentId}</div>
                                 <div>Level {level}, Semester {semester}</div>
