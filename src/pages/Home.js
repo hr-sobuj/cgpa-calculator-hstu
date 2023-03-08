@@ -1,14 +1,17 @@
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { FaCalculator, FaClipboard } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700">
-      <h1 className="text-5xl pt-10 font-bold text-white">
+  <>
+  <Navbar/>
+    <div className="flex flex-col justify-center items-center h-screen ">
+      {/* <h1 className="text-5xl pt-10 font-bold text-white">
         Hajee Mohammad Danesh Science & Technology University
-      </h1>
-      <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10 justify-center items-center mt-20">
+      </h1> */}
+      <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10 justify-center items-center mt-0">
         <Link
           to={"/gpa_calculator"}
           className="focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -53,5 +56,6 @@ export default function Home() {
         </Link>
       </div>
     </div>
+  </>
   );
 }
