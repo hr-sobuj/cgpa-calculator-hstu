@@ -89,7 +89,7 @@ export default function GPACalculator() {
                                 placeholder="Enter Your Name"
                                 className="border px-3 py-2 w-full rounded-lg"
                                 onChange={(e) => setName(e.target.value)}
-                                value={name}
+                                // value={name}
                             />
                         </div>
                         {inputFields?.map((input, idx) => {
