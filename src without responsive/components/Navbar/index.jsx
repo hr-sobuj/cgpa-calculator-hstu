@@ -1,37 +1,26 @@
 import { Transition } from "@headlessui/react";
 import { useState } from "react";
-import {
-  FaBars,
-  FaCalculator,
-  FaChartLine,
-  FaFileAlt,
-  FaHome,
-} from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-blue-700">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link to="/">
-              <div className="flex-shrink-0 flex items-center">
-                <img
-                  className="h-8 w-8 mr-2"
-                  src="https://hstu.ac.bd/img/hstu_logo_.png"
-                  alt="Hajee Mohammad Danesh Science & Technology University"
-                />
-                <span className="text-xl font-bold text-white inline lg:hidden">
-                  HSTU
-                </span>
-                <span className="text-xl font-bold text-white hidden lg:inline">
-                  Hajee Mohammad Danesh Science & Technology University
-                </span>
-              </div>
-            </Link>
+            <div className="flex-shrink-0 flex items-center">
+              <img
+                className="h-8 w-8 mr-2"
+                src="https://hstu.ac.bd/img/hstu_logo_.png"
+                alt="Hajee Mohammad Danesh Science & Technology University"
+              />
+              <span className="text-xl font-bold text-white">
+                Hajee Mohammad Danesh Science & Technology University
+              </span>
+            </div>
           </div>
           <div className="-mr-2 flex items-center md:hidden">
             <button
@@ -50,30 +39,30 @@ export default function Navbar() {
               <NavLink
                 to="/"
                 activeClassName="font-bold"
-                className="text-white hover:text-gray-300 mx-2 flex items-center"
+                className="text-white hover:text-gray-300 mx-2"
               >
-                <FaHome className="mr-2" /> Home
+                Home
               </NavLink>
               <NavLink
                 to="/gpa_calculator"
                 activeClassName="font-bold"
-                className="text-white hover:text-gray-300 mx-2 flex items-center"
+                className="text-white hover:text-gray-300 mx-2"
               >
-                <FaCalculator className="mr-2" /> GPA Calculator
+                GPA Calculator
               </NavLink>
               <NavLink
                 to="/cgpa_calculator"
                 activeClassName="font-bold"
-                className="text-white hover:text-gray-300 mx-2 flex items-center"
+                className="text-white hover:text-gray-300 mx-2"
               >
-                <FaChartLine className="mr-2" /> CGPA Calculator
+                CGPA Calculator
               </NavLink>
               <NavLink
                 to="/cover_page"
                 activeClassName="font-bold"
-                className="text-white hover:text-gray-300 mx-2 flex items-center"
+                className="text-white hover:text-gray-300 mx-2"
               >
-                <FaFileAlt className="mr-2" /> Cover Page Design
+                Cover Page Design
               </NavLink>
             </div>
           </div>
@@ -94,30 +83,30 @@ export default function Navbar() {
             <NavLink
               to="/"
               activeClassName="font-bold"
-              className="text-white hover:text-gray-300 flex items-center px-3 py-2 rounded-md text-base font-medium"
+              className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
             >
-              <FaHome className="mr-2" /> Home
+              Home
             </NavLink>
             <NavLink
               to="/gpa_calculator"
               activeClassName="font-bold"
-              className="text-white hover:text-gray-300 flex items-center px-3 py-2 rounded-md text-base font-medium"
+              className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
             >
-              <FaCalculator className="mr-2" /> GPA Calculator
+              GPA Calculator
             </NavLink>
             <NavLink
               to="/cgpa_calculator"
               activeClassName="font-bold"
-              className="text-white hover:text-gray-300 flex items-center px-3 py-2 rounded-md text-base font-medium"
+              className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
             >
-              <FaChartLine className="mr-2" /> CGPA Calculator
+              CGPA Calculator
             </NavLink>
             <NavLink
               to="/cover_page"
               activeClassName="font-bold"
-              className="flex items-center text-white hover:text-gray-300 px-3 py-2 rounded-md text-base font-medium"
+              className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
             >
-              <FaFileAlt className="mr-2" /> Cover Page Design
+              Cover Page Design
             </NavLink>
           </div>
         </div>
