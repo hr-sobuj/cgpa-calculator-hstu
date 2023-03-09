@@ -19,7 +19,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link to="/">
               <div className="flex-shrink-0 flex items-center">
-                <img
+                {/* <img
                   className="h-8 w-8 mr-2"
                   src="https://hstu.ac.bd/img/hstu_logo_.png"
                   alt="Hajee Mohammad Danesh Science & Technology University"
@@ -29,6 +29,17 @@ export default function Navbar() {
                 </span>
                 <span className="text-xl font-bold text-white hidden lg:inline">
                   Hajee Mohammad Danesh Science & Technology University
+                </span> */}
+                <img
+                  className="h-8 w-8 mr-2"
+                  src="./logo.png"
+                  alt="GPA & CGPA Calculator"
+                />
+                <span className="text-xl font-bold text-white flex justify-center items-center">
+                  <span>
+                    {/* <FaCalculator className="text-3xl text-white mb-4 inline-flex justify-center items-center mt-4" /> */}
+                  </span>
+                  <span>GPA & CGPA Calculator</span>
                 </span>
               </div>
             </Link>
